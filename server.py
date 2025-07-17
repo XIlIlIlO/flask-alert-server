@@ -1,14 +1,31 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request
 import os
 
 app = Flask(__name__)
 
-# 채널 ID: 메시지 리스트 매핑
 messages_by_channel = {
     '-1002438287858': [],
     '-1002673695521': [],
     '-1002408933093': []
 }
+
+@app.route('/webhook', methods=['POST'])
+def telegram_webhook():
+    data = request.json
+    post = data.get('channel_post', {})
+    text = post.get('text', '')
+    chat_id = str(post.get('chat', {}).get('id', ''))
+
+    if text and chat_id in messages_by_channel:
+        print(f"📩 채널 {chat_id}:", text)
+        messages_by_channel[chat_id].append(text)
+        if len(messages_by_channel[chat_id]) > 10:
+            messages_by_channel[chat_id].pop(0)
+    else:
+        print(f"❌ 미등록 채널 또는 메시지 없음 - chat_id: {chat_id}")
+
+    return '', 200
+
 
 @app.route('/messages/<channel_id>')
 def messages_html(channel_id):
@@ -52,7 +69,6 @@ def messages_html(channel_id):
 
     html += "</body></html>"
     return html
-
 
 
 if __name__ == '__main__':
