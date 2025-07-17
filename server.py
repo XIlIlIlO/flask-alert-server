@@ -33,23 +33,24 @@ def messages_html(channel_id):
         <meta charset="UTF-8">
         <meta http-equiv="refresh" content="1">
         <style>
-            body {{ font-family: Arial, sans-serif; padding: 20px; }}
+            body {{ font-family: Arial, sans-serif; padding: 20px; text-align: center; }}
             h2 {{ color: #0078FF; }}
-            ul {{ list-style-type: none; padding: 0; }}
-            li {{ padding: 8px 0; border-bottom: 1px solid #ddd; }}
+            .msg {{ font-size: 20px; margin-top: 20px; }}
         </style>
     </head>
     <body>
         <h2>📢 채널 {channel_id} 공지사항</h2>
-        <ul>
     """
 
     msgs = messages_by_channel.get(channel_id, [])
-    for msg in reversed(msgs[-10:]):
-        html += f"<li>{msg}</li>"
+    if msgs:
+        html += f"<div class='msg'>{msgs[-1]}</div>"
+    else:
+        html += "<div class='msg'>📭 아직 등록된 메시지가 없습니다.</div>"
 
-    html += "</ul></body></html>"
+    html += "</body></html>"
     return html
+
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
