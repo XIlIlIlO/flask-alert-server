@@ -31,7 +31,7 @@ def messages_html(channel_id):
     <html>
     <head>
         <meta charset="UTF-8">
-        <meta http-equiv="refresh" content="5">
+        <meta http-equiv="refresh" content="1">
         <style>
             body {{ font-family: Arial, sans-serif; padding: 20px; }}
             h2 {{ color: #0078FF; }}
