@@ -66,6 +66,7 @@ def messages_html(channel_id):
                 line-height: 1.5;
                 color: #fff;
                 text-shadow: 0 0 5px #fff, 0 0 10px #fff;
+                overflow: hidden;
             }}
         </style>
     </head>
