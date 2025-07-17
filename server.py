@@ -10,21 +10,6 @@ messages_by_channel = {
     '-1002408933093': []
 }
 
-@app.route('/webhook', methods=['POST'])
-def telegram_webhook():
-    data = request.json
-    post = data.get('channel_post', {})
-    text = post.get('text', '')
-    chat_id = str(post.get('chat', {}).get('id', ''))
-
-    if text and chat_id in messages_by_channel:
-        print(f"📩 채널 {chat_id}:", text)
-        messages_by_channel[chat_id].append(text)
-        if len(messages_by_channel[chat_id]) > 10:
-            messages_by_channel[chat_id].pop(0)
-
-    return '', 200
-
 @app.route('/messages/<channel_id>')
 def messages_html(channel_id):
     html = f"""
@@ -33,9 +18,26 @@ def messages_html(channel_id):
         <meta charset="UTF-8">
         <meta http-equiv="refresh" content="1">
         <style>
-            body {{ font-family: Arial, sans-serif; padding: 20px; text-align: center; }}
-            h2 {{ color: #0078FF; }}
-            .msg {{ font-size: 20px; margin-top: 20px; }}
+            body {{
+                font-family: 'Courier New', monospace;
+                padding: 20px;
+                background-color: #f9f9f9;
+                text-align: left;
+            }}
+            h2 {{
+                color: #0078FF;
+                text-align: center;
+            }}
+            pre {{
+                background: #fff;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                white-space: pre-wrap;
+                word-break: break-word;
+                font-size: 14px;
+                line-height: 1.5;
+            }}
         </style>
     </head>
     <body>
@@ -44,12 +46,13 @@ def messages_html(channel_id):
 
     msgs = messages_by_channel.get(channel_id, [])
     if msgs:
-        html += f"<div class='msg'>{msgs[-1]}</div>"
+        html += f"<pre>{msgs[-1]}</pre>"
     else:
-        html += "<div class='msg'>📭 아직 등록된 메시지가 없습니다.</div>"
+        html += "<pre>📭 아직 등록된 메시지가 없습니다.</pre>"
 
     html += "</body></html>"
     return html
+
 
 
 if __name__ == '__main__':
