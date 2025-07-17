@@ -19,31 +19,32 @@ def telegram_webhook():
 def get_messages():
     return jsonify(messages=messages)
 
-@app.route('/messages.html')  # ✅ 반드시 app.run 위에 있어야 함
+@app.route('/messages.html')
 def messages_html():
     html = """
     <html>
     <head>
         <meta charset="UTF-8">
+        <meta http-equiv="refresh" content="1">
         <style>
-            body { font-family: Arial, sans-serif; padding: 20px; }
+            body { font-family: Arial, sans-serif; padding: 20px; text-align: center; }
             h2 { color: #0078FF; }
-            ul { list-style-type: none; padding: 0; }
-            li { padding: 8px 0; border-bottom: 1px solid #ddd; }
+            .msg { font-size: 20px; margin-top: 20px; }
         </style>
     </head>
     <body>
         <h2>📢 실시간 공지사항</h2>
-        <ul>
     """
-    for msg in reversed(messages[-10:]):
-        html += f"<li>{msg}</li>"
+    if messages:
+        html += f'<div class="msg">{messages[-1]}</div>'
+    else:
+        html += '<div class="msg">아직 등록된 메시지가 없습니다.</div>'
     html += """
-        </ul>
     </body>
     </html>
     """
     return html
+
 
 # ✅ 이건 제일 아래
 if __name__ == '__main__':
