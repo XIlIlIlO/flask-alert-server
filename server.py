@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+import os
 
 app = Flask(__name__)
 messages = []
@@ -18,6 +19,6 @@ def telegram_webhook():
 def get_messages():
     return jsonify(messages=messages)
 
-# 🔥 이 부분이 꼭 필요함!
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host='0.0.0.0', port=port)
