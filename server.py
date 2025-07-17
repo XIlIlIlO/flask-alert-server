@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 messages_by_channel = {
     '-1002438287858': [],
-    '-1002673695521': [],
+    '-1002751858885': [],
     '-1002408933093': []
 }
 
@@ -29,6 +29,14 @@ def telegram_webhook():
 
 @app.route('/messages/<channel_id>')
 def messages_html(channel_id):
+    channel_names = {
+        '-1002438287858': 'SUPERHERO BINANCE 5/15/60MIN CRYPTO AI',
+        '-1002751858885': '📈 SuperHero Pumping↑ & Dumping↓ AI',
+        '-1002408933093': 'SUPERHERO BINANCE 1MIN SCALPING AI'
+    }
+
+    display_name = channel_names.get(channel_id, f'채널 {channel_id}')
+
     html = f"""
     <html>
     <head>
@@ -38,27 +46,31 @@ def messages_html(channel_id):
             body {{
                 font-family: 'Courier New', monospace;
                 padding: 20px;
-                background-color: #f9f9f9;
+                background-color: #000;
+                color: #fff;
                 text-align: left;
             }}
             h2 {{
-                color: #0078FF;
+                color: #00f0ff;
                 text-align: center;
+                text-shadow: 0 0 5px #00f0ff, 0 0 10px #00f0ff, 0 0 20px #00f0ff;
             }}
             pre {{
-                background: #fff;
+                background: #111;
                 padding: 20px;
                 border-radius: 10px;
-                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                box-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
                 white-space: pre-wrap;
                 word-break: break-word;
-                font-size: 14px;
+                font-size: 16px;
                 line-height: 1.5;
+                color: #fff;
+                text-shadow: 0 0 5px #fff, 0 0 10px #fff;
             }}
         </style>
     </head>
     <body>
-        <h2>📢 채널 {channel_id} 공지사항</h2>
+        <h2>📢 {display_name}</h2>
     """
 
     msgs = messages_by_channel.get(channel_id, [])
@@ -69,6 +81,7 @@ def messages_html(channel_id):
 
     html += "</body></html>"
     return html
+
 
 
 if __name__ == '__main__':
