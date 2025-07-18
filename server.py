@@ -53,7 +53,7 @@ def messages_html(channel_id):
             h2 {{
                 color: #00f0ff;
                 text-align: center;
-                text-shadow: 0 0 1px #00f0ff, 0 0 10px #00f0ff, 0 0 20px #00f0ff;
+                text-shadow: none;
             }}
             pre {{
                 background: #111;
@@ -65,7 +65,7 @@ def messages_html(channel_id):
                 font-size: 16px;
                 line-height: 1.5;
                 color: #fff;
-                text-shadow: 0 0 1px #fff, 0 0 10px #fff;
+                text-shadow: none;
                 overflow: hidden;
             }}
         </style>
