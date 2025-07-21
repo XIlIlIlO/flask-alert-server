@@ -1,5 +1,7 @@
 from flask import Flask, request
 import os
+from binance.client import Client
+from flask import jsonify  # 이미 있을 수도 있음
 
 app = Flask(__name__)
 
@@ -82,7 +84,42 @@ def messages_html(channel_id):
 
     html += "</body></html>"
     return html
+api_key = os.getenv("XH7JN637MfMSELLQjpviyLHuaiNvICWYTi2fssTVJQDDQu0lcdczaK64WFqI2xjQ")
+api_secret = os.getenv("CCDDXGfxD1PJCSubXTc406DbFP5pBTuDbZ9WzrrC4nicCpVLtcuQyIrjkl4IKQpr")
+client = Client(api_key, api_secret)
 
+def get_usdt_symbols():
+    exchange_info = client.futures_exchange_info()
+    return [s['symbol'] for s in exchange_info['symbols']
+            if s['quoteAsset'] == 'USDT'
+            and s['contractType'] == 'PERPETUAL'
+            and not s['symbol'].startswith('LD')]
+
+def get_15m_volatility(symbol):
+    try:
+        klines = client.futures_klines(symbol=symbol, interval=Client.KLINE_INTERVAL_1MINUTE, limit=15)
+        highs = [float(k[2]) for k in klines]
+        lows = [float(k[3]) for k in klines]
+        open_price = float(klines[0][1])
+        close_price = float(klines[-1][4])
+        high = max(highs)
+        low = min(lows)
+        volatility = abs((high - low) / low) * 100
+        color = "green" if close_price > open_price else "red"
+        return {"symbol": symbol, "volatility": volatility, "color": color}
+    except:
+        return None
+
+@app.route("/top_volatility")
+def top_volatility():
+    symbols = get_usdt_symbols()
+    data = []
+    for sym in symbols:
+        result = get_15m_volatility(sym)
+        if result:
+            data.append(result)
+    sorted_data = sorted(data, key=lambda x: x['volatility'], reverse=True)[:30]
+    return jsonify(sorted_data)
 
 
 if __name__ == '__main__':
