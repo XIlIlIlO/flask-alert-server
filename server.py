@@ -1,6 +1,7 @@
 from flask import Flask, request
 import os
 import requests
+import re
 
 app = Flask(__name__)
 
@@ -19,6 +20,35 @@ def get_file_url(file_id):
     file_info = requests.get(f"https://api.telegram.org/bot{BOT_TOKEN}/getFile?file_id={file_id}").json()
     file_path = file_info['result']['file_path']
     return TELEGRAM_FILE_URL + file_path
+
+# ✅ 메시지 내 코인명 링크로 변환
+def linkify_coin_names(text):
+    lines = text.strip().split('\n')
+    new_lines = []
+
+    for line in lines:
+        # ex: OMUSDT: 10.30%
+        match_usdt = re.match(r'^([A-Z0-9]+USDT)\s*:\s*[\d\.]+%', line.strip())
+        if match_usdt:
+            symbol = match_usdt.group(1)
+            url = f"https://www.binance.com/en/futures/{symbol}"
+            linked = line.replace(symbol, f'<a href="{url}" target="_blank" style="color:#00f0ff;text-decoration:underline;">{symbol}</a>')
+            new_lines.append(linked)
+            continue
+
+        # ex: 1. INIT   3.93% ↑ Long
+        match_ranked = re.match(r'^\s*\d+\.\s+([A-Z0-9]+)\b', line)
+        if match_ranked:
+            coin = match_ranked.group(1)
+            url = f"https://www.binance.com/en/futures/{coin}USDT"
+            linked = re.sub(coin, f'<a href="{url}" target="_blank" style="color:#00f0ff;text-decoration:underline;">{coin}</a>', line, count=1)
+            new_lines.append(linked)
+            continue
+
+        # 통과
+        new_lines.append(line)
+
+    return '<br>'.join(new_lines)
 
 @app.route('/webhook', methods=['POST'])
 def telegram_webhook():
@@ -44,7 +74,6 @@ def telegram_webhook():
             print(f"🖼 채널 {chat_id}의 새 이미지 등록됨.")
 
     return '', 200
-
 
 @app.route('/messages/<channel_id>')
 def messages_html(channel_id):
@@ -87,6 +116,10 @@ def messages_html(channel_id):
                 text-shadow: none;
                 overflow: hidden;
             }}
+            a {{
+                color: #00f0ff;
+                text-decoration: underline;
+            }}
         </style>
     </head>
     <body>
@@ -95,13 +128,13 @@ def messages_html(channel_id):
 
     msgs = messages_by_channel.get(channel_id, [])
     if msgs:
-        html += f"<pre>{msgs[-1]}</pre>"
+        linked_msg = linkify_coin_names(msgs[-1])
+        html += f"<pre>{linked_msg}</pre>"
     else:
         html += "<pre>📭 아직 등록된 메시지가 없습니다.</pre>"
 
     html += "</body></html>"
     return html
-
 
 @app.route('/images/<channel_id>')
 def images_html(channel_id):
@@ -143,7 +176,8 @@ def images_html(channel_id):
     html += "</body></html>"
     return html
 
-
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)
+
+
