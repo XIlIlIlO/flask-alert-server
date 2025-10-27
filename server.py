@@ -139,47 +139,7 @@ def messages_html(channel_id):
     return html
 
 
-@app.route('/images/<channel_id>')
-def images_html(channel_id):
-    file_id = latest_photo_by_channel.get(channel_id)
 
-    html = """
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="refresh" content="30">
-        <style>
-            body {
-                background-color: #000;
-                text-align: center;
-                margin: 0;
-                padding: 30px;
-                transform: scale(0.8);           /* 👈 화면 20% 축소 */
-                transform-origin: top center;    /* 👈 위쪽 기준으로 축소 */
-            }
-            img {
-                max-width: 100%;
-                border-radius: 10px;
-                box-shadow: 0 0 15px #00f0ff;
-            }
-            p {
-                color: #888;
-                font-size: 18px;
-                font-family: 'Courier New', monospace;
-            }
-        </style>
-    </head>
-    <body>
-    """
-
-    if file_id:
-        image_url = get_file_url(file_id)
-        html += f'<img src="{image_url}" alt="최근 이미지">'
-    else:
-        html += "<p>📭 아직 등록된 이미지가 없습니다.</p>"
-
-    html += "</body></html>"
-    return html
 
 # 🔹 메시지 30% 축소 버전
 @app.route('/messages_small/<channel_id>')
@@ -246,53 +206,12 @@ def messages_small_html(channel_id):
     return html
 
 
-# 🔹 이미지 30% 축소 버전
-@app.route('/images_small/<channel_id>')
-def images_small_html(channel_id):
-    file_id = latest_photo_by_channel.get(channel_id)
-
-    html = """
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="refresh" content="30">
-        <style>
-            body {
-                background-color: #000;
-                text-align: center;
-                margin: 0;
-                padding: 30px;
-                transform: scale(0.7);           /* 👈 기존보다 더 축소 */
-                transform-origin: top center;
-            }
-            img {
-                max-width: 100%;
-                border-radius: 10px;
-                box-shadow: 0 0 15px #00f0ff;
-            }
-            p {
-                color: #888;
-                font-size: 18px;
-                font-family: 'Courier New', monospace;
-            }
-        </style>
-    </head>
-    <body>
-    """
-
-    if file_id:
-        image_url = get_file_url(file_id)
-        html += f'<img src="{image_url}" alt="최근 이미지">'
-    else:
-        html += "<p>📭 아직 등록된 이미지가 없습니다.</p>"
-
-    html += "</body></html>"
-    return html
 
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)
+
 
 
 
