@@ -97,6 +97,8 @@ def messages_html(channel_id):
                 background-color: #000;
                 color: #fff;
                 text-align: left;
+                transform: scale(0.8);              /* 👈 화면 20% 축소 */
+                transform-origin: top center;       /* 👈 위쪽 기준으로 축소 */
             }}
             h2 {{
                 color: #00f0ff;
@@ -136,6 +138,7 @@ def messages_html(channel_id):
     html += "</body></html>"
     return html
 
+
 @app.route('/images/<channel_id>')
 def images_html(channel_id):
     file_id = latest_photo_by_channel.get(channel_id)
@@ -151,6 +154,8 @@ def images_html(channel_id):
                 text-align: center;
                 margin: 0;
                 padding: 30px;
+                transform: scale(0.8);           /* 👈 화면 20% 축소 */
+                transform-origin: top center;    /* 👈 위쪽 기준으로 축소 */
             }
             img {
                 max-width: 100%;
@@ -179,5 +184,6 @@ def images_html(channel_id):
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)
+
 
 
