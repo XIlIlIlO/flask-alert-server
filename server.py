@@ -164,7 +164,7 @@ def messages_small_html(channel_id):
                 background-color: #000;
                 color: #fff;
                 text-align: left;
-                transform: scale(0.7);              /* 👈 기존보다 더 축소 */
+                transform: scale(0.5);              /* 👈 기존보다 더 축소 */
                 transform-origin: top center;
             }}
             h2 {{
@@ -192,7 +192,7 @@ def messages_small_html(channel_id):
         </style>
     </head>
     <body>
-        <h2>📢 {display_name} (30% 축소 버전)</h2>
+        <h2>📢 {display_name}</h2>
     """
 
     msgs = messages_by_channel.get(channel_id, [])
@@ -211,6 +211,7 @@ def messages_small_html(channel_id):
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)
+
 
 
 
