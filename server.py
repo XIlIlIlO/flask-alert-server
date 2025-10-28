@@ -32,7 +32,7 @@ def linkify_coin_names(text):
         if match_usdt:
             symbol = match_usdt.group(1)
             url = f"https://www.binance.com/en/futures/{symbol}"
-            linked = line.replace(symbol, f'<a href="{url}" target="_blank" style="color:#00f0ff;text-decoration:underline;">{symbol}</a>')
+            linked = line.replace(symbol, f'<a href="{url}" target="_blank" style="color:#afff00;text-decoration:underline;">{symbol}</a>')
             new_lines.append(linked)
             continue
 
@@ -41,7 +41,7 @@ def linkify_coin_names(text):
         if match_ranked:
             coin = match_ranked.group(1)
             url = f"https://www.binance.com/en/futures/{coin}USDT"
-            linked = re.sub(coin, f'<a href="{url}" target="_blank" style="color:#00f0ff;text-decoration:underline;">{coin}</a>', line, count=1)
+            linked = re.sub(coin, f'<a href="{url}" target="_blank" style="color:#afff00;text-decoration:underline;">{coin}</a>', line, count=1)
             new_lines.append(linked)
             continue
 
@@ -87,45 +87,60 @@ def messages_html(channel_id):
 
     html = f"""
     <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="refresh" content="1">
-        <style>
-            body {{
-                font-family: 'Courier New', monospace;
-                padding: 20px;
-                background-color: transparent;
-                color: #fff;
-                text-align: left;
-                transform: scale(0.8);              /* 👈 화면 20% 축소 */
-                transform-origin: top center;       /* 👈 위쪽 기준으로 축소 */
-            }}
-            h2 {{
-                color: #00f0ff;
-                text-align: center;
-                text-shadow: none;
-            }}
-            pre {{
-                background: #111;
-                padding: 20px;
-                border-radius: 10px;
-                box-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
-                white-space: pre-wrap;
-                word-break: break-word;
-                font-size: 16px;
-                line-height: 1.5;
-                color: #fff;
-                text-shadow: none;
-                overflow: hidden;
-            }}
-            a {{
-                color: #00f0ff;
-                text-decoration: underline;
-            }}
-        </style>
-    </head>
-    <body>
-        <h2>📢 {display_name}</h2>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="1">
+
+    <!-- ✅ Orbitron + Gilroy 폰트 불러오기 -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        @font-face {{
+            font-family: 'Gilroy';
+            src: url('https://cdn.jsdelivr.net/gh/xilililo/fonts/Gilroy-Regular.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }}
+
+        body {{
+            font-family: 'Gilroy', sans-serif;
+            padding: 20px;
+            background-color: transparent;
+            color: #fff;
+            text-align: left;
+            transform: scale(0.8);
+            transform-origin: top center;
+        }}
+
+        h2 {{
+            font-family: 'Orbitron', sans-serif;
+            color: #afff00;                     /* ✅ 네온 색상 */
+            text-align: center;
+            text-shadow: 0 0 10px #afff00, 0 0 20px #afff00;
+        }}
+
+        pre {{
+            background: #111;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #afff00, 0 0 20px #afff00;  /* ✅ 네온 변경 */
+            white-space: pre-wrap;
+            word-break: break-word;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #fff;
+            font-family: 'Gilroy', sans-serif;
+            text-shadow: none;
+            overflow: hidden;
+        }}
+
+        a {{
+            color: #afff00;                      /* ✅ 링크 색상 */
+            text-decoration: underline;
+        }}
+    </style>
+</head>
+<body>
+    <h2>📢 {display_name}</h2>
     """
 
     msgs = messages_by_channel.get(channel_id, [])
@@ -154,45 +169,60 @@ def messages_small_html(channel_id):
 
     html = f"""
     <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="refresh" content="1">
-        <style>
-            body {{
-                font-family: 'Courier New', monospace;
-                padding: 20px;
-                background-color: transparent;
-                color: #fff;
-                text-align: left;
-                transform: scale(0.5);              /* 👈 기존보다 더 축소 */
-                transform-origin: top center;
-            }}
-            h2 {{
-                color: #00f0ff;
-                text-align: center;
-                text-shadow: none;
-            }}
-            pre {{
-                background: #111;
-                padding: 20px;
-                border-radius: 10px;
-                box-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
-                white-space: pre-wrap;
-                word-break: break-word;
-                font-size: 16px;
-                line-height: 1.5;
-                color: #fff;
-                text-shadow: none;
-                overflow: hidden;
-            }}
-            a {{
-                color: #00f0ff;
-                text-decoration: underline;
-            }}
-        </style>
-    </head>
-    <body>
-        <h2>📢 {display_name}</h2>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="1">
+
+    <!-- ✅ Orbitron + Gilroy 폰트 불러오기 -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        @font-face {{
+            font-family: 'Gilroy';
+            src: url('https://cdn.jsdelivr.net/gh/xilililo/fonts/Gilroy-Regular.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }}
+
+        body {{
+            font-family: 'Gilroy', sans-serif;
+            padding: 20px;
+            background-color: transparent;
+            color: #fff;
+            text-align: left;
+            transform: scale(0.5);
+            transform-origin: top center;
+        }}
+
+        h2 {{
+            font-family: 'Orbitron', sans-serif;
+            color: #afff00;                     /* ✅ 네온 색상 */
+            text-align: center;
+            text-shadow: 0 0 10px #afff00, 0 0 20px #afff00;
+        }}
+
+        pre {{
+            background: #111;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #afff00, 0 0 20px #afff00;  /* ✅ 네온 변경 */
+            white-space: pre-wrap;
+            word-break: break-word;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #fff;
+            font-family: 'Gilroy', sans-serif;
+            text-shadow: none;
+            overflow: hidden;
+        }}
+
+        a {{
+            color: #afff00;                      /* ✅ 링크 색상 */
+            text-decoration: underline;
+        }}
+    </style>
+</head>
+<body>
+    <h2>📢 {display_name}</h2>
     """
 
     msgs = messages_by_channel.get(channel_id, [])
@@ -211,6 +241,7 @@ def messages_small_html(channel_id):
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)
+
 
 
 
