@@ -94,7 +94,7 @@ def messages_html(channel_id):
             body {{
                 font-family: 'Courier New', monospace;
                 padding: 20px;
-                background-color: #000;
+                background-color: transparent;
                 color: #fff;
                 text-align: left;
                 transform: scale(0.8);              /* 👈 화면 20% 축소 */
@@ -161,7 +161,7 @@ def messages_small_html(channel_id):
             body {{
                 font-family: 'Courier New', monospace;
                 padding: 20px;
-                background-color: #000;
+                background-color: transparent;
                 color: #fff;
                 text-align: left;
                 transform: scale(0.5);              /* 👈 기존보다 더 축소 */
@@ -211,6 +211,7 @@ def messages_small_html(channel_id):
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)
+
 
 
 
