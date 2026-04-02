@@ -159,21 +159,21 @@ def messages_html(channel_id):
             text-decoration: underline;
         }}
 
-        .long-neon {
+        .long-neon {{
     color: #39ff14;
     font-weight: 700;
     text-shadow:
         0 0 1px #39ff14,
         0 0 3px rgba(57, 255, 20, 0.45);
-}
+}}
 
-.short-neon {
+.short-neon {{
     color: #ff3b3b;
     font-weight: 700;
     text-shadow:
         0 0 1px #ff3b3b,
         0 0 3px rgba(255, 59, 59, 0.45);
-}
+}}
     </style>
 </head>
 <body>
