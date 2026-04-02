@@ -143,7 +143,7 @@ def messages_html(channel_id):
             background: #111;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px #afff00, 0 0 20px #afff00;
+            box-shadow: 0 0 4px #afff00, 0 0 8px #afff00;
             white-space: pre-wrap;
             word-break: break-word;
             font-size: 16px;
@@ -243,7 +243,7 @@ def messages_small_html(channel_id):
             background: #111;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px #afff00, 0 0 20px #afff00;
+            box-shadow: 0 0 4px #afff00, 0 0 8px #afff00;
             white-space: pre-wrap;
             word-break: break-word;
             font-size: 16px;
