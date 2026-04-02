@@ -143,7 +143,7 @@ def messages_html(channel_id):
             background: #111;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 4px #afff00, 0 0 8px #afff00;
+            box-shadow: 0 0 10px #afff00, 0 0 20px #afff00;
             white-space: pre-wrap;
             word-break: break-word;
             font-size: 16px;
@@ -160,20 +160,24 @@ def messages_html(channel_id):
         }}
 
         .long-neon {{
-    color: #39ff14;
-    font-weight: 700;
-    text-shadow:
-        0 0 1px #39ff14,
-        0 0 3px rgba(57, 255, 20, 0.45);
-}}
+            color: #39ff14;
+            font-weight: 700;
+            text-shadow:
+                0 0 4px #39ff14,
+                0 0 4px #39ff14,
+                0 0 4px #39ff14,
+                0 0 4px #39ff14;
+        }}
 
-.short-neon {{
-    color: #ff3b3b;
-    font-weight: 700;
-    text-shadow:
-        0 0 1px #ff3b3b,
-        0 0 3px rgba(255, 59, 59, 0.45);
-}}
+        .short-neon {{
+            color: #ff3b3b;
+            font-weight: 700;
+            text-shadow:
+                0 0 4px #ff3b3b,
+                0 0 4px #ff3b3b,
+                0 0 4px #ff3b3b,
+                0 0 4px #ff3b3b;
+        }}
     </style>
 </head>
 <body>
@@ -239,7 +243,7 @@ def messages_small_html(channel_id):
             background: #111;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 4px #afff00, 0 0 8px #afff00;
+            box-shadow: 0 0 10px #afff00, 0 0 20px #afff00;
             white-space: pre-wrap;
             word-break: break-word;
             font-size: 16px;
@@ -260,9 +264,9 @@ def messages_small_html(channel_id):
             font-weight: 700;
             text-shadow:
                 0 0 4px #39ff14,
-                0 0 8px #39ff14,
-                0 0 16px #39ff14,
-                0 0 24px #39ff14;
+                0 0 4px #39ff14,
+                0 0 4px #39ff14,
+                0 0 4px #39ff14;
         }}
 
         .short-neon {{
@@ -270,9 +274,9 @@ def messages_small_html(channel_id):
             font-weight: 700;
             text-shadow:
                 0 0 4px #ff3b3b,
-                0 0 8px #ff3b3b,
-                0 0 16px #ff3b3b,
-                0 0 24px #ff3b3b;
+                0 0 4px #ff3b3b,
+                0 0 4px #ff3b3b,
+                0 0 4px #ff3b3b;
         }}
     </style>
 </head>
