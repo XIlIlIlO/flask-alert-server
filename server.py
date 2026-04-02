@@ -164,9 +164,9 @@ def messages_html(channel_id):
             font-weight: 700;
             text-shadow:
                 0 0 4px #39ff14,
-                0 0 4px #39ff14,
-                0 0 4px #39ff14,
-                0 0 4px #39ff14;
+                0 0 8px #39ff14,
+                0 0 16px #39ff14,
+                0 0 24px #39ff14;
         }}
 
         .short-neon {{
@@ -174,9 +174,9 @@ def messages_html(channel_id):
             font-weight: 700;
             text-shadow:
                 0 0 4px #ff3b3b,
-                0 0 4px #ff3b3b,
-                0 0 4px #ff3b3b,
-                0 0 4px #ff3b3b;
+                0 0 8px #ff3b3b,
+                0 0 16px #ff3b3b,
+                0 0 24px #ff3b3b;
         }}
     </style>
 </head>
@@ -264,9 +264,9 @@ def messages_small_html(channel_id):
             font-weight: 700;
             text-shadow:
                 0 0 4px #39ff14,
-                0 0 4px #39ff14,
-                0 0 4px #39ff14,
-                0 0 4px #39ff14;
+                0 0 8px #39ff14,
+                0 0 16px #39ff14,
+                0 0 24px #39ff14;
         }}
 
         .short-neon {{
@@ -274,9 +274,9 @@ def messages_small_html(channel_id):
             font-weight: 700;
             text-shadow:
                 0 0 4px #ff3b3b,
-                0 0 4px #ff3b3b,
-                0 0 4px #ff3b3b,
-                0 0 4px #ff3b3b;
+                0 0 8px #ff3b3b,
+                0 0 16px #ff3b3b,
+                0 0 24px #ff3b3b;
         }}
     </style>
 </head>
