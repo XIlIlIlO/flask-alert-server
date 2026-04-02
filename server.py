@@ -211,8 +211,6 @@ def messages_small_html(channel_id):
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="refresh" content="1">
-
-    <!-- ✅ Orbitron + Gilroy 폰트 불러오기 -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
     <style>
         @font-face {{
@@ -262,21 +260,13 @@ def messages_small_html(channel_id):
         .long-neon {{
             color: #39ff14;
             font-weight: 700;
-            text-shadow:
-                0 0 4px #39ff14,
-                0 0 4px #39ff14,
-                0 0 4px #39ff14,
-                0 0 4px #39ff14;
+            text-shadow: none;
         }}
 
         .short-neon {{
             color: #ff3b3b;
             font-weight: 700;
-            text-shadow:
-                0 0 4px #ff3b3b,
-                0 0 4px #ff3b3b,
-                0 0 4px #ff3b3b,
-                0 0 4px #ff3b3b;
+            text-shadow: none;
         }}
     </style>
 </head>
