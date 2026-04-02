@@ -159,25 +159,21 @@ def messages_html(channel_id):
             text-decoration: underline;
         }}
 
-        .long-neon {{
-            color: #39ff14;
-            font-weight: 700;
-            text-shadow:
-                0 0 4px #39ff14,
-                0 0 8px #39ff14,
-                0 0 16px #39ff14,
-                0 0 24px #39ff14;
-        }}
+        .long-neon {
+    color: #39ff14;
+    font-weight: 700;
+    text-shadow:
+        0 0 1px #39ff14,
+        0 0 3px rgba(57, 255, 20, 0.45);
+}
 
-        .short-neon {{
-            color: #ff3b3b;
-            font-weight: 700;
-            text-shadow:
-                0 0 4px #ff3b3b,
-                0 0 8px #ff3b3b,
-                0 0 16px #ff3b3b,
-                0 0 24px #ff3b3b;
-        }}
+.short-neon {
+    color: #ff3b3b;
+    font-weight: 700;
+    text-shadow:
+        0 0 1px #ff3b3b,
+        0 0 3px rgba(255, 59, 59, 0.45);
+}
     </style>
 </head>
 <body>
