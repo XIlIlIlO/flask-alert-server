@@ -7,7 +7,6 @@ app = Flask(__name__)
 
 messages_by_channel = {
     '-1002438287858': [],
-    
     '-1002408933093': []
 }
 
@@ -21,7 +20,21 @@ def get_file_url(file_id):
     file_path = file_info['result']['file_path']
     return TELEGRAM_FILE_URL + file_path
 
-# ✅ 메시지 내 코인명 링크로 변환
+# ✅ LONG / SHORT 네온 스타일 적용
+def style_trade_words(text):
+    text = re.sub(
+        r'\b(LONG|Long|long)\b',
+        r'<span class="long-neon">\1</span>',
+        text
+    )
+    text = re.sub(
+        r'\b(SHORT|Short|short)\b',
+        r'<span class="short-neon">\1</span>',
+        text
+    )
+    return text
+
+# ✅ 메시지 내 코인명 링크로 변환 + LONG / SHORT 색상 적용
 def linkify_coin_names(text):
     lines = text.strip().split('\n')
     new_lines = []
@@ -32,8 +45,11 @@ def linkify_coin_names(text):
         if match_usdt:
             symbol = match_usdt.group(1)
             url = f"https://www.binance.com/en/futures/{symbol}"
-            linked = line.replace(symbol, f'<a href="{url}" target="_blank" style="color:#afff00;text-decoration:underline;">{symbol}</a>')
-            new_lines.append(linked)
+            linked = line.replace(
+                symbol,
+                f'<a href="{url}" target="_blank" style="color:#afff00;text-decoration:underline;">{symbol}</a>'
+            )
+            new_lines.append(style_trade_words(linked))
             continue
 
         # ex: 1. INIT   3.93% ↑ Long
@@ -41,12 +57,17 @@ def linkify_coin_names(text):
         if match_ranked:
             coin = match_ranked.group(1)
             url = f"https://www.binance.com/en/futures/{coin}USDT"
-            linked = re.sub(coin, f'<a href="{url}" target="_blank" style="color:#afff00;text-decoration:underline;">{coin}</a>', line, count=1)
-            new_lines.append(linked)
+            linked = re.sub(
+                coin,
+                f'<a href="{url}" target="_blank" style="color:#afff00;text-decoration:underline;">{coin}</a>',
+                line,
+                count=1
+            )
+            new_lines.append(style_trade_words(linked))
             continue
 
-        # 통과
-        new_lines.append(line)
+        # 통과 + LONG / SHORT 스타일 적용
+        new_lines.append(style_trade_words(line))
 
     return '<br>'.join(new_lines)
 
@@ -113,7 +134,7 @@ def messages_html(channel_id):
 
         h2 {{
             font-family: 'Orbitron', sans-serif;
-            color: #afff00;                     /* ✅ 네온 색상 */
+            color: #afff00;
             text-align: center;
             text-shadow: 0 0 10px #afff00, 0 0 20px #afff00;
         }}
@@ -122,7 +143,7 @@ def messages_html(channel_id):
             background: #111;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px #afff00, 0 0 20px #afff00;  /* ✅ 네온 변경 */
+            box-shadow: 0 0 4px #afff00, 0 0 4px #afff00;
             white-space: pre-wrap;
             word-break: break-word;
             font-size: 16px;
@@ -134,8 +155,28 @@ def messages_html(channel_id):
         }}
 
         a {{
-            color: #afff00;                      /* ✅ 링크 색상 */
+            color: #afff00;
             text-decoration: underline;
+        }}
+
+        .long-neon {{
+            color: #39ff14;
+            font-weight: 700;
+            text-shadow:
+                0 0 4px #39ff14,
+                0 0 4px #39ff14,
+                0 0 4px #39ff14,
+                0 0 4px #39ff14;
+        }}
+
+        .short-neon {{
+            color: #ff3b3b;
+            font-weight: 700;
+            text-shadow:
+                0 0 4px #ff3b3b,
+                0 0 4px #ff3b3b,
+                0 0 4px #ff3b3b,
+                0 0 4px #ff3b3b;
         }}
     </style>
 </head>
@@ -152,8 +193,6 @@ def messages_html(channel_id):
 
     html += "</body></html>"
     return html
-
-
 
 
 # 🔹 메시지 30% 축소 버전
@@ -195,7 +234,7 @@ def messages_small_html(channel_id):
 
         h2 {{
             font-family: 'Orbitron', sans-serif;
-            color: #afff00;                     /* ✅ 네온 색상 */
+            color: #afff00;
             text-align: center;
             text-shadow: 0 0 10px #afff00, 0 0 20px #afff00;
         }}
@@ -204,7 +243,7 @@ def messages_small_html(channel_id):
             background: #111;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px #afff00, 0 0 20px #afff00;  /* ✅ 네온 변경 */
+            box-shadow: 0 0 4px #afff00, 0 0 4px #afff00;
             white-space: pre-wrap;
             word-break: break-word;
             font-size: 16px;
@@ -216,8 +255,28 @@ def messages_small_html(channel_id):
         }}
 
         a {{
-            color: #afff00;                      /* ✅ 링크 색상 */
+            color: #afff00;
             text-decoration: underline;
+        }}
+
+        .long-neon {{
+            color: #39ff14;
+            font-weight: 700;
+            text-shadow:
+                0 0 4px #39ff14,
+                0 0 4px #39ff14,
+                0 0 4px #39ff14,
+                0 0 4px #39ff14;
+        }}
+
+        .short-neon {{
+            color: #ff3b3b;
+            font-weight: 700;
+            text-shadow:
+                0 0 4px #ff3b3b,
+                0 0 4px #ff3b3b,
+                0 0 4px #ff3b3b,
+                0 0 4px #ff3b3b;
         }}
     </style>
 </head>
@@ -236,15 +295,6 @@ def messages_small_html(channel_id):
     return html
 
 
-
-
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)
-
-
-
-
-
-
-
