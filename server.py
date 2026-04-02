@@ -20,7 +20,7 @@ def get_file_url(file_id):
     file_path = file_info['result']['file_path']
     return TELEGRAM_FILE_URL + file_path
 
-# ✅ LONG / SHORT 네온 스타일 적용
+# ✅ LONG / SHORT 스타일 적용
 def style_trade_words(text):
     text = re.sub(
         r'\b(LONG|Long|long)\b',
@@ -111,8 +111,6 @@ def messages_html(channel_id):
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="refresh" content="1">
-
-    <!-- ✅ Orbitron + Gilroy 폰트 불러오기 -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
     <style>
         @font-face {{
@@ -162,21 +160,13 @@ def messages_html(channel_id):
         .long-neon {{
             color: #39ff14;
             font-weight: 700;
-            text-shadow:
-                0 0 4px #39ff14,
-                0 0 4px #39ff14,
-                0 0 4px #39ff14,
-                0 0 4px #39ff14;
+            text-shadow: none;
         }}
 
         .short-neon {{
             color: #ff3b3b;
             font-weight: 700;
-            text-shadow:
-                0 0 4px #ff3b3b,
-                0 0 4px #ff3b3b,
-                0 0 4px #ff3b3b,
-                0 0 4px #ff3b3b;
+            text-shadow: none;
         }}
     </style>
 </head>
@@ -195,7 +185,6 @@ def messages_html(channel_id):
     return html
 
 
-# 🔹 메시지 30% 축소 버전
 @app.route('/messages_small/<channel_id>')
 def messages_small_html(channel_id):
     channel_names = {
